@@ -11,7 +11,7 @@ def encrypt(str, shift)
     raise "Invalid shift value: Only integers allowed"
   end
 
-  encryptedString = ""
+  encryptedString = []
 
   str.each_char do |char| # Iterate through each character
     isUpcase = false
@@ -26,15 +26,13 @@ def encrypt(str, shift)
     end
 
     # Negative numbers shift the index to the left while positive to the right
-    newIndex = currIndex + shift
-    newIndex = newIndex % letters.length # Uses modulo to wrap the index on the array if it exceeds it
-      
+    newIndex = (currIndex + shift) % letters.length # Uses modulo to wrap the index on the array if it exceeds it
     newLetter = isUpcase ? letters[newIndex].upcase : letters[newIndex]
 
-    encryptedString += newLetter
+    encryptedString << newLetter
   end
 
-  return encryptedString
+  return encryptedString.join('')
 end
 
 # ---------------------------------------------------------- #
