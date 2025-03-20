@@ -1,6 +1,7 @@
-# odin-caesar-cipher
+# Basic Ruby Projects for Odin Project
 
-A function for creating caesar cyphers for the odin project
-- Use a positive value of any integer value to shift to the right
+## Odin-Caesar's Cypher
+A function for creating caesar cyphers
+- Use any integer value positive value to shift to the right
 - Use a negative value to shift to the left
  
