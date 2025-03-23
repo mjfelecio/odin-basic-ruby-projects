@@ -19,7 +19,7 @@ def encrypt(str, shift)
 
     # Ignore the character if it isn't a letter
     if curr_idx.nil?
-      encrypted_string += char
+      encrypted_string << char
       next
     end
 
