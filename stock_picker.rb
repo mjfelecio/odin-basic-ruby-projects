@@ -1,49 +1,39 @@
 # frozen_string_literal: false
 
-def stock_picker(stock_prices)
-  result = []
-  p stock_prices.sort
-  # Get the lowest value on the array
-  lowest_val = stock_prices.min
-  lowest_val_idx = stock_prices.index(lowest_val)
-  result << lowest_val_idx
+def find_pair(array, idx)
+  pair = {}
+  smallest_num = array[idx]
+  small_idx = array.index(smallest_num)
 
-  # Get the highest value on the array
+  highest_num_in_front = array[small_idx + 1, array.length - 1].max
 
-  # Get the days after the lowest
-  days_after_lowest = stock_prices.slice(lowest_val_idx + 1, stock_prices.length - 1)
+  return nil if highest_num_in_front.nil?
 
-  p days_after_lowest
-  p days_after_lowest.max
-  highest_val = days_after_lowest.max
+  arr = []
+  arr << smallest_num
+  arr << highest_num_in_front
 
-  highest_val_idx = days_after_lowest.index(highest_val) + 1 + lowest_val_idx
-  result << highest_val_idx
+  pair[highest_num_in_front - smallest_num] = arr
+  pair
 end
 
-def get_best_option(stock_prices)
-  best_option = 0
-  indexes = []
+def stock_picker(stock_prices)
+  best_pair = []
+  pairs = {}
+  gains = []
 
-  stock_prices.each do |prices|
-    stock_prices.each do |p|
-      stock_gain = prices - p
-      next unless stock_gain > best_option
+  stock_prices.each_index do |day|
+    pair = find_pair(stock_prices, day)
+    next if pair.nil?
 
-      best_option = stock_gain
-      indexes.clear
-      lowest_val = [prices, p].min
-      highest_val = [prices, p].max
-      indexes << stock_prices.index(lowest_val)
-      indexes << stock_prices.index(highest_val)
-    end
+    pairs.store(pair.key(pair.values[0]), pair.values[0])
+    gains << pair.key(pair.values[0])
   end
 
-  indexes
+  best_gain = gains.max
+  best_pair << stock_prices.index(pairs[best_gain][0])
+  best_pair << stock_prices.index(pairs[best_gain][1])
+  best_pair
 end
 
-# p stock_picker([17, 3, 6, 9, 15, 8, 6, 1, 10])
-
-# p stock_picker([3, 30, 2, 27, 4, 14])
-
-p get_best_option([17, 3, 6, 9, 15, 8, 6, 1, 10])
+p stock_picker([17, 3, 6, 9, 15, 8, 6, 1, 10])
