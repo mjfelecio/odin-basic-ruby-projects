@@ -33,10 +33,10 @@ def stock_picker(stock_prices)
   end
 
   best_gain = gains.max
-  buy_day = pairs[best_gain][0]
-  sell_day = pairs[best_gain][1]
-  best_pair << stock_prices.index(buy_day)
-  best_pair << stock_prices.index(sell_day)
+  buy_day = stock_prices.index(pairs[best_gain][0])
+  sell_day = stock_prices.index(pairs[best_gain][1])
+  best_pair << buy_day
+  best_pair << sell_day
   best_pair
 end
 
