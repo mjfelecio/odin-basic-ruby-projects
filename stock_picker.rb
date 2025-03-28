@@ -18,21 +18,25 @@ def find_pair(array, idx)
 end
 
 def stock_picker(stock_prices)
-  best_pair = []
   pairs = {}
   gains = []
+  best_pair = []
 
   stock_prices.each_index do |day|
     pair = find_pair(stock_prices, day)
     next if pair.nil?
 
-    pairs.store(pair.key(pair.values[0]), pair.values[0])
-    gains << pair.key(pair.values[0])
+    gain = pair.key(pair.values[0])
+    price_values = pair.values[0]
+    pairs.store(gain, price_values)
+    gains << gain
   end
 
   best_gain = gains.max
-  best_pair << stock_prices.index(pairs[best_gain][0])
-  best_pair << stock_prices.index(pairs[best_gain][1])
+  buy_day = pairs[best_gain][0]
+  sell_day = pairs[best_gain][1]
+  best_pair << stock_prices.index(buy_day)
+  best_pair << stock_prices.index(sell_day)
   best_pair
 end
 
