@@ -1,19 +1,19 @@
 # frozen_string_literal: false
 
-def find_pair(array, idx)
+def find_buy_sell_pair(array, day)
   pair = {}
-  smallest_num = array[idx]
-  small_idx = array.index(smallest_num)
 
-  highest_num_in_front = array[small_idx + 1, array.length - 1].max
+  price_today = array[day]
+  highest_price_after_today = array[day + 1, array.length - 1].max
 
-  return nil if highest_num_in_front.nil?
+  return nil if highest_price_after_today.nil?
 
-  arr = []
-  arr << smallest_num
-  arr << highest_num_in_front
+  buy_sell_pair = []
+  buy_sell_pair << price_today
+  buy_sell_pair << highest_price_after_today
 
-  pair[highest_num_in_front - smallest_num] = arr
+  gain = highest_price_after_today - price_today
+  pair[gain] = buy_sell_pair
   pair
 end
 
@@ -23,7 +23,7 @@ def stock_picker(stock_prices)
   best_pair = []
 
   stock_prices.each_index do |day|
-    pair = find_pair(stock_prices, day)
+    pair = find_buy_sell_pair(stock_prices, day)
     next if pair.nil?
 
     gain = pair.key(pair.values[0])
